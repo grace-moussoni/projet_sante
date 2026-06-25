@@ -183,13 +183,6 @@ class Hopital:
             (self.nb_deces / self.nb_hospitalisations) * 100,
             1
         )
-
-    # methode pour calculer le taux d'occupation des lits de l'hopital
-    def taux_occupation(self):
-        return round(
-            (self.nb_lits_occupes / self.nb_lits_total) * 100,
-            1
-        )
         
     # ------------------------------------------------------------------------------------
     # j'ai preferer ajouter une methode budget_medicaments pour calculer le budget alloue 
@@ -285,10 +278,20 @@ class Hopital:
 
         print(
             f"  Taux occupation   : "
-            f"{self.taux_occupation()}%                     "
+            f"{self.calculer_taux_occupation()}%                     "
             f"[Optimal : 70-85%]"
         )
 
+        #----------------------------------------------------------------
+        # decommenter les lignes ci-dessous pour afficher le cout moyen 
+        # par patient hospitalise requis pour le challenge
+        
+        #----------------------------------------------------------------
+        # print(
+        #     f"  Cout moyen / patient hospitalise : "
+        #     f"{self.cout_moyen_patient():,.2f} FCFA"
+        # )
+        
         print()
 
         print("ANALYSE PHARMACIE")
@@ -320,6 +323,16 @@ class Hopital:
         print()
 
         print(self.generer_alerte())
+    
+    #------------------------------------------------------------------------------------
+    # la methode introduite dans le challenge
+    
+    #------------------------------------------------------------------------------------
+    # methode pour calculer le cout moyen par patient hospitalise
+    def cout_moyen_patient(self):
+        if self.nb_hospitalisations == 0:
+            return 0
+        return round(self.budget_fcfa / self.nb_hospitalisations, 2)
         
 #------------------------------------------------------------------------------------
 # *** NOTE IMPORTANTE ***
